@@ -155,7 +155,7 @@ function handler(event, context, callback) {
                         "text": logEvent,
                         "threadId": resultParsed.logStream
                     };
-                })
+                }).filter(logEvent => logEvent.severity >= getSeverityLevel(process.env.log_level.toLocaleLowerCase()))
             ), (error, compressedEvents) => {
                 if (error) {
                     callback(error);
