@@ -1,6 +1,7 @@
 function lambda_function_builder { 
     mkdir -p ./results
     results_dir = $(realpath ./results)
+    echo "$results_dir"
     pushd ./src/
     for f in *;  do 
         if [[ "$f" != "helper" && "$f" != "lambda-extension" && -d $f ]]; 
@@ -15,5 +16,6 @@ function lambda_function_builder {
         fi;  
     done;  
     popd
+    rm -fr "$results_dir"
 };
 lambda_function_builder
