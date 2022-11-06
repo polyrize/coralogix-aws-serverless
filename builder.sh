@@ -1,18 +1,19 @@
 function lambda_function_builder { 
     mkdir -p ./results
-    cd ./src/
+    result_dir = $(realpath ./results)
+    pushd ./src/
     for f in *;  do 
         if [[ "$f" != "helper" && "$f" != "lambda-extension" && -d $f ]]; 
         then  
             echo "$f"
-            cd "$f";
+            pushd "$f";
             sam build 
             cd .aws-sam/build/LambdaFunction/
             zip -r ../../../../../results/"$f" .  
             echo "Doing something in folder `pwd`/$f"; 
-            cd ../../../../; 
+            popd; 
         fi;  
     done;  
-    cd ..
+    popd
 };
 lambda_function_builder
