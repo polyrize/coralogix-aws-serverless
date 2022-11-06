@@ -16,6 +16,5 @@ function lambda_function_builder {
         fi;  
     done;  
     popd
-    rm -fr "$results_dir"
 };
 lambda_function_builder
