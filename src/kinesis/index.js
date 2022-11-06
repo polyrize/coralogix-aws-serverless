@@ -126,7 +126,7 @@ function handler(event, context, callback) {
                 "severity": getSeverityLevel(eventRecord),
                 "text": eventRecord
             };
-        })
+        }).filter(logEvent => logEvent.severity >= getSeverityLevel(process.env.log_level.toLowerCase()))
     }), (error, compressedEvents) => {
         if (error) {
             callback(error);

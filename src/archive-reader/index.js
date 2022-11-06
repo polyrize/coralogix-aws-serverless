@@ -47,11 +47,12 @@ function sendLogs(content) {
         }
         delete record.text;
         newRecord.coralogix_metadata = record;
-
-        logger.addLog(new coralogix.Log({
-            text: newRecord,
-            severity: getSeverityCode(newRecord.coralogix_metadata.severity)
-        }));
+        if (getSeverityCode(newRecord.coralogix_metadata.severity) >= getSeverityCode(process.env.log_level.toLowerCase()) ) {
+            logger.addLog(new coralogix.Log({
+                text: newRecord,
+                severity: getSeverityCode(newRecord.coralogix_metadata.severity)
+            }));
+        }
     }).on("error", (error) => {
         console.log(error);
     });

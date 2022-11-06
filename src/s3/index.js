@@ -52,15 +52,17 @@ function sendLogs(content, filename) {
             subName = subName.startsWith("$.") ? dig(subName, JSON.parse(logs[i])) : subName;
         } catch {}
 
-        logger.addLog(
-            appName,
-            subName,
-            new coralogix.Log({
-                severity: getSeverityLevel(logs[i]),
-                text: logs[i],
-                threadId: filename
-            })
-        );
+        if (getSeverityLevel(logs[i]) >= getSeverityLevel(process.env.log_level.toLowerCase()) ) {
+            logger.addLog(
+                appName,
+                subName,
+                new coralogix.Log({
+                    severity: getSeverityLevel(logs[i]),
+                    text: logs[i],
+                    threadId: filename
+                })
+            );
+        }
     }
 }
 

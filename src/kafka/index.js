@@ -119,7 +119,7 @@ function handler(event, context, callback) {
                     "text": text,
                     "threadId": record.topic
                 };
-            });
+            }).filter(logEvent => logEvent.severity >= getSeverityLevel(process.env.log_level.toLowerCase()));
         }).flat()
     }), (error, compressedEvents) => {
         if (error) {

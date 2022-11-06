@@ -137,7 +137,7 @@ function handler(event, context, callback) {
                 "category": logEvent.Subject,
                 "threadId": logEvent.TopicArn
             };
-        })
+        }).filter(logEvent => logEvent.severity >= getSeverityLevel(process.env.log_level.toLowerCase()))
     ), (error, compressedEvents) => {
         if (error) {
             callback(error);
