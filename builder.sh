@@ -1,6 +1,6 @@
 function lambda_function_builder { 
     mkdir -p ./results
-    results_dir = $(realpath ./results)
+    results_dir=$(realpath ./results)
     echo "$results_dir"
     pushd ./src/
     for f in *;  do 
